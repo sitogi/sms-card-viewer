@@ -1,0 +1,106 @@
+{
+  "name": "react-cra-template",
+  "version": "0.1.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "homepage": "./",
+  "main": "build/electron/main.js",
+  "build": {
+    "extends": null,
+    "files": [
+      "build/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^1.6.5",
+    "@emotion/react": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
+    "electron-is-dev": "^2.0.0",
+    "electron-reload": "^2.0.0-alpha.1",
+    "framer-motion": "^4.1.17",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-markdown": "^7.0.1",
+    "react-syntax-highlighter": "^15.4.4",
+    "remark-breaks": "^3.0.1",
+    "remark-gfm": "^2.0.0",
+    "web-vitals": "^2.1.0"
+  },
+  "scripts": {
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "postinstall": "electron-builder install-app-deps",
+    "wait-start": "wait-on http://localhost:3000",
+    "start": "concurrently \"npm run start:start-server\" \"npm run start:watch-electron\" \"npm run start:use-electron\"",
+    "start:start-server": "cross-env BROWSER=none react-scripts start",
+    "start:watch-electron": "run-s wait-start start:watch-electron:watch",
+    "start:watch-electron:watch": "tsc -p electron -w",
+    "start:use-electron": "run-s wait-start start:use-electron:build start:use-electron:run",
+    "start:use-electron:build": "tsc -p electron",
+    "start:use-electron:run": "electron .",
+    "build": "run-s build:clean build:react build:electron build:electron-builder",
+    "build:clean": "rimraf build dist",
+    "build:react": "react-scripts build",
+    "build:electron": "tsc -p electron",
+    "build:electron-builder": "electron-builder"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^12.1.1",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.10.2",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-syntax-highlighter": "^13.5.2",
+    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/parser": "^4.32.0",
+    "concurrently": "^6.3.0",
+    "cross-env": "^7.0.3",
+    "electron": "^15.1.0",
+    "electron-builder": "^22.11.7",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jest": "^24.4.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.26.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.4.1",
+    "prettier-stylelint": "^0.4.2",
+    "react-scripts": "4.0.3",
+    "rimraf": "^3.0.2",
+    "stylelint": "^13.13.1",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-order": "^4.1.0",
+    "typescript": "^4.1.2",
+    "wait-on": "^6.0.0"
+  }
+}
