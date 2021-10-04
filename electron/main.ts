@@ -1,6 +1,8 @@
 import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as isDev from 'electron-is-dev';
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
 import { initIpcMain } from './ipcMainHandlers';
 
 const createWindow = async () => {
@@ -8,6 +10,8 @@ const createWindow = async () => {
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 1000,
+    opacity: 0.9,
+    frame: true,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -43,6 +47,21 @@ const createWindow = async () => {
     const date = new Date();
     mainWindow.webContents.send('sendSecond', String(date.getSeconds()));
   }, 1000);
+
+  // api server for open from alfred
+  const apiServer = express();
+  apiServer.use(
+    bodyParser.urlencoded({
+      extended: true,
+    }),
+  );
+  apiServer.use(bodyParser.json());
+  apiServer.listen(9999);
+  apiServer.post('/', (req, res) => {
+    console.log(req.body);
+    mainWindow.showInactive();
+    res.json(req.body);
+  });
 };
 
 app.whenReady().then(createWindow);
