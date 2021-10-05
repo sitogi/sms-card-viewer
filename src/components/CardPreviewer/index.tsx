@@ -54,7 +54,7 @@ export const CardPreviewer = (): JSX.Element => {
     <Box h="100%" w="100%" overflowY="auto" padding="20px">
       <Flex wrap="wrap" justify="space-around" gridGap="20px 0">
         {cards.map((card) => (
-          <Box css={gfmStyles} rounded="md" h="500px" w="500px" bg={card.color} p="10px">
+          <Box key={card.id} css={gfmStyles} rounded="md" h="500px" w="500px" bg={card.color} p="10px">
             <ReactMarkdown remarkPlugins={[gfm, remarkBreaks]} components={{ code: CodeBlock }}>
               {card.mdStr}
             </ReactMarkdown>
