@@ -40,27 +40,14 @@ const CodeBlock: CodeComponent | ReactMarkdownNames = React.memo(({ inline, ...p
 export const CardPreviewer = (): JSX.Element => {
   const [cards, setCards] = useState<Card[]>([]);
 
-  // useEffect(() => {
-  //   window.electronAPI.onReceiveMainTime((event, timeStr: string) => {
-  //     setCards([]);
-  //   });
-  //
-  //   return () => {
-  //     window.electronAPI.removeOnReceiveMainTime();
-  //   };
-  // }, []);
-
-  // dummy
   useEffect(() => {
-    setCards(
-      Array.from(Array(6).keys()).map((key) => ({
-        id: String(key),
-        boardId: `board ${key}`,
-        mdStr: `## Hello ${key}`,
-        color: 'green.300',
-        previewEnabled: true,
-      })),
-    );
+    window.electronAPI.onReceiveSearchResults((event, results: Card[]) => {
+      setCards(results);
+    });
+
+    return () => {
+      window.electronAPI.removeOnReceiveMainTime();
+    };
   }, []);
 
   return (

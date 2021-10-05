@@ -58,8 +58,8 @@ const createWindow = async () => {
   apiServer.use(bodyParser.json());
   apiServer.listen(9999);
   apiServer.post('/', (req, res) => {
-    console.log(req.body);
     mainWindow.showInactive();
+    mainWindow.webContents.send('receiveSearchResults', req.body);
     res.json(req.body);
   });
 };
